@@ -19,3 +19,18 @@ func TestCreateChannel(t *testing.T) {
 	data := <- channel
 	fmt.Println(data)
 }
+
+func GiveMeResponse(channel chan string) {
+	time.Sleep(2 * time.Second)
+	channel <- "Eko"
+}
+
+func TestChannelAsParameter(t *testing.T) {
+	channel := make(chan string)
+
+	go GiveMeResponse(channel)
+
+	data := <- channel
+	fmt.Println(data)
+	close(channel)
+}
